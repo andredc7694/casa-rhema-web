@@ -1,83 +1,167 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Rhema | ¿Qué es el amor?</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Rhema | ¿Qué es el amor?</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
+
+<!-- BOTONES FLOTANTES -->
+<div class="social-buttons">
+    <a href="https://www.facebook.com/casarhemacentral" target="_blank" class="facebook">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://www.instagram.com/iglesiarhema_ayac" target="_blank" class="instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+</div>
+<!-- BOTÓN VOLVER ARRIBA -->
+
+<button id="topBtn">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!--musica-->
+<audio id="bgMusic" loop>
+    <source src="music/audio.mp3" type="audio/mp3">
+</audio>
+
 <body>
 
-    <!-- LOADER -->
-    <div id="loader">
-        <div class="spinner"></div>
-    </div>
+<!-- PANTALLA INICIAL -->
+<div id="gate">
+    <div class="gate-content">
+        <h1 id="mainText"></h1>
+        <p id="subText"></p>
+        <p id="countdown"></p>
 
-    <!-- INTRO OBLIGATORIA -->
-    <section class="intro">
-        <div class="intro-content">
-            <h1>Casa Rhema</h1>
-            <p>Una reflexión sobre el amor</p>
-
-            <div class="scroll-indicator">
-                <span>Desliza hacia arriba</span>
-                <div class="arrow"></div>
-            </div>
+        <div id="scrollInvite" class="hidden">
+            <span>DESLIZA!!!!</span>
+            <div class="line"></div>
         </div>
-    </section>
-
-    <!-- SLIDES -->
-    <section class="slide"><img src="images/pagina1.jpeg"></section>
-    <section class="slide"><img src="images/pagina2.jpeg"></section>
-    <section class="slide"><img src="images/pagina3.jpeg"></section>
-    <section class="slide"><img src="images/pagina4.jpeg"></section>
-    <section class="slide"><img src="images/pagina5.jpeg"></section>
-    <section class="slide"><img src="images/pagina6.jpeg"></section>
-    <section class="slide"><img src="images/pagina7.jpeg"></section>
-    <section class="slide"><img src="images/pagina8.jpeg"></section>
-
-    <!-- BOTONES FLOTANTES -->
-    <div class="social-buttons">
-        <a href="https://www.facebook.com/casarhemacentral" target="_blank" class="facebook">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://www.instagram.com/iglesiarhema_ayac" target="_blank" class="instagram">
-            <i class="fab fa-instagram"></i>
-        </a>
     </div>
+</div>
 
-    <!-- BOTÓN VOLVER ARRIBA -->
-    <button id="topBtn"><i class="fas fa-arrow-up"></i></button>
+<!-- SLIDES -->
+<section class="slide"><img src="images/pagina1.jpeg"></section>
+<section class="slide"><img src="images/pagina2.jpeg"></section>
+<section class="slide"><img src="images/pagina3.jpeg"></section>
+<section class="slide"><img src="images/pagina4.jpeg"></section>
+<section class="slide"><img src="images/pagina5.jpeg"></section>
+<section class="slide"><img src="images/pagina6.jpeg"></section>
+<section class="slide"><img src="images/pagina7.jpeg"></section>
+<section class="slide"><img src="images/pagina8.jpeg"></section>
 
-    <script>
-        const topBtn = document.getElementById("topBtn");
+<script>
+const text1 = "El amor no es lo que muchos creen…";
+const text2 = "Hoy lo descubrirás.";
+const mainText = document.getElementById("mainText");
+const subText = document.getElementById("subText");
+const countdownEl = document.getElementById("countdown");
+const scrollInvite = document.getElementById("scrollInvite");
+const gate = document.getElementById("gate");
 
-        window.onscroll = function () {
-            if (document.documentElement.scrollTop > 300) {
-                topBtn.style.display = "block";
-            } else {
-                topBtn.style.display = "none";
-            }
-        };
+let i = 0;
+let unlocked = false;
 
-        topBtn.onclick = function () {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        };
+/* EFECTO MAQUINA */
+function typeWriter() {
+    if (i < text1.length) {
+        mainText.innerHTML += text1.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+    } else {
+        setTimeout(() => {
+            subText.style.opacity = 1;
+        }, 500);
+    }
+}
+typeWriter();
 
-        // Loader
-        window.addEventListener("load", function(){
-            const loader = document.getElementById("loader");
-            loader.style.opacity = "0";
-            setTimeout(() => {
-                loader.style.display = "none";
-            }, 600);
-        });
-    </script>
+/* SUBTEXTO */
+subText.innerText = text2;
+
+/* CUENTA REGRESIVA */
+let count = 5;
+countdownEl.innerText = count;
+
+let timer = setInterval(() => {
+    count--;
+    countdownEl.innerText = count;
+
+    if (count <= 0) {
+        clearInterval(timer);
+        countdownEl.innerText = "";
+        scrollInvite.classList.remove("hidden");
+    }
+}, 1000);
+
+/* DESBLOQUEO */
+window.addEventListener("wheel", function(e){
+    if(!unlocked && e.deltaY > 0){
+        unlock();
+    }
+});
+
+window.addEventListener("touchstart", handleTouchStart, false);
+window.addEventListener("touchmove", handleTouchMove, false);
+
+let yDown = null;
+
+function handleTouchStart(evt) {
+    yDown = evt.touches[0].clientY;
+}
+
+function handleTouchMove(evt) {
+    if (!yDown) return;
+    let yUp = evt.touches[0].clientY;
+    let yDiff = yDown - yUp;
+
+    if (yDiff > 50 && !unlocked) {
+        unlock();
+    }
+
+    yDown = null;
+}
+
+function unlock(){
+    unlocked = true;
+
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.3; // volumen bajo elegante
+    music.play();
+
+    gate.classList.add("fadeOut");
+
+    setTimeout(()=>{
+        gate.style.display = "none";
+    },1000);
+}
+
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", function () {
+    if (window.scrollY > window.innerHeight) {
+        topBtn.style.display = "block";
+    } else {
+        topBtn.style.display = "none";
+    }
+});
+
+topBtn.onclick = function () {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+};
+
+</script>
 
 </body>
 </html>
-
