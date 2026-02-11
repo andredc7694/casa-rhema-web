@@ -9,6 +9,10 @@ body {
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     background: black;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* PANTALLA INICIAL */
@@ -110,6 +114,12 @@ body {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    pointer-events: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
 }
 
 /* BOTONES FLOTANTES */

@@ -8,30 +8,8 @@
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
-
-<!-- BOTONES FLOTANTES -->
-<div class="social-buttons">
-    <a href="https://www.facebook.com/casarhemacentral" target="_blank" class="facebook">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://www.instagram.com/iglesiarhema_ayac" target="_blank" class="instagram">
-        <i class="fab fa-instagram"></i>
-    </a>
-</div>
-<!-- BOTÓN VOLVER ARRIBA -->
-
-<button id="topBtn">
-    <i class="fas fa-arrow-up"></i>
-</button>
-
-<!--musica-->
-<audio id="bgMusic" loop>
-    <source src="music/audio.mp3" type="audio/mp3">
-</audio>
-
 <body>
 
 <!-- PANTALLA INICIAL -->
@@ -42,7 +20,7 @@
         <p id="countdown"></p>
 
         <div id="scrollInvite" class="hidden">
-            <span>DESLIZA!!!!</span>
+            <span>DESLIZA</span>
             <div class="line"></div>
         </div>
     </div>
@@ -58,6 +36,26 @@
 <section class="slide"><img src="images/pagina7.jpeg"></section>
 <section class="slide"><img src="images/pagina8.jpeg"></section>
 
+<!-- BOTONES FLOTANTES -->
+<div class="social-buttons">
+    <a href="https://www.facebook.com/casarhemacentral" target="_blank" class="facebook">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://www.instagram.com/iglesiarhema_ayac" target="_blank" class="instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+</div>
+
+<!-- BOTÓN VOLVER ARRIBA -->
+<button id="topBtn">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- MÚSICA -->
+<audio id="bgMusic" loop>
+    <source src="music/audio.mp3" type="audio/mp3">
+</audio>
+
 <script>
 const text1 = "El amor no es lo que muchos creen…";
 const text2 = "Hoy lo descubrirás.";
@@ -66,6 +64,7 @@ const subText = document.getElementById("subText");
 const countdownEl = document.getElementById("countdown");
 const scrollInvite = document.getElementById("scrollInvite");
 const gate = document.getElementById("gate");
+const topBtn = document.getElementById("topBtn");
 
 let i = 0;
 let unlocked = false;
@@ -84,11 +83,10 @@ function typeWriter() {
 }
 typeWriter();
 
-/* SUBTEXTO */
 subText.innerText = text2;
 
 /* CUENTA REGRESIVA */
-let count = 5;
+let count = 3;
 countdownEl.innerText = count;
 
 let timer = setInterval(() => {
@@ -102,51 +100,9 @@ let timer = setInterval(() => {
     }
 }, 1000);
 
-/* DESBLOQUEO */
-window.addEventListener("wheel", function(e){
-    if(!unlocked && e.deltaY > 0){
-        unlock();
-    }
-});
-
-window.addEventListener("touchstart", handleTouchStart, false);
-window.addEventListener("touchmove", handleTouchMove, false);
-
-let yDown = null;
-
-function handleTouchStart(evt) {
-    yDown = evt.touches[0].clientY;
-}
-
-function handleTouchMove(evt) {
-    if (!yDown) return;
-    let yUp = evt.touches[0].clientY;
-    let yDiff = yDown - yUp;
-
-    if (yDiff > 50 && !unlocked) {
-        unlock();
-    }
-
-    yDown = null;
-}
-
-function unlock(){
-    unlocked = true;
-
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.3; // volumen bajo elegante
-    music.play();
-
-    gate.classList.add("fadeOut");
-
-    setTimeout(()=>{
-        gate.style.display = "none";
-    },1000);
-}
-
-const topBtn = document.getElementById("topBtn");
-
-window.addEventListener("scroll", function () {
+/* DESBLOQUEO PROFESIONAL (SIN BLOQUEAR CELULAR) */
+/* MOSTRAR BOTÓN ARRIBA */
+window.addEventListener("scroll", function() {
     if (window.scrollY > window.innerHeight) {
         topBtn.style.display = "block";
     } else {
@@ -154,13 +110,68 @@ window.addEventListener("scroll", function () {
     }
 });
 
+/* DESBLOQUEO Y MÚSICA CON INTERACCIÓN REAL */
+document.addEventListener("touchstart", firstInteraction, { once: true });
+document.addEventListener("click", firstInteraction, { once: true });
+
+function firstInteraction() {
+    if (!unlocked) {
+        unlock();
+    }
+}
+
+function unlock(){
+    unlocked = true;
+
+    const music = document.getElementById("bgMusic");
+
+    if(music){
+        music.volume = 0;
+        music.play().then(() => {
+            // Fade in suave
+            let vol = 0;
+            const fade = setInterval(() => {
+                if (vol < 0.3) {
+                    vol += 0.02;
+                    music.volume = vol;
+                } else {
+                    clearInterval(fade);
+                }
+            }, 200);
+        }).catch(() => {});
+    }
+
+    gate.classList.add("fadeOut");
+
+    setTimeout(()=>{
+        gate.style.display = "none";
+    },800);
+}
+
+function unlock(){
+    unlocked = true;
+
+    const music = document.getElementById("bgMusic");
+    if(music){
+        music.volume = 0.3;
+        music.play().catch(() => {});
+    }
+
+    gate.classList.add("fadeOut");
+
+    setTimeout(()=>{
+        gate.style.display = "none";
+        window.scrollTo(0,0);
+    },800);
+}
+
+/* BOTÓN VOLVER ARRIBA */
 topBtn.onclick = function () {
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 };
-
 </script>
 
 </body>
