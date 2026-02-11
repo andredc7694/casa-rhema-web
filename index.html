@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Rhema | ¿Qué es el amor?</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- SLIDES -->
+    <section class="slide"><img src="images/pagina1.jpeg"></section>
+    <section class="slide"><img src="images/pagina2.jpeg"></section>
+    <section class="slide"><img src="images/pagina3.jpeg"></section>
+    <section class="slide"><img src="images/pagina4.jpeg"></section>
+    <section class="slide"><img src="images/pagina5.jpeg"></section>
+    <section class="slide"><img src="images/pagina6.jpeg"></section>
+    <section class="slide"><img src="images/pagina7.jpeg"></section>
+    <section class="slide"><img src="images/pagina8.jpeg"></section>
+
+    <!-- BOTONES FLOTANTES -->
+    <div class="social-buttons">
+        <a href="https://www.facebook.com/" target="_blank" class="facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" class="instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <button id="topBtn">↑</button>
+
+    <script>
+        const topBtn = document.getElementById("topBtn");
+
+        window.onscroll = function () {
+            if (document.documentElement.scrollTop > 300) {
+                topBtn.style.display = "block";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+
+        topBtn.onclick = function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        };
+    </script>
+
+</body>
+</html>

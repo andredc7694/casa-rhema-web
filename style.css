@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    font-family: Arial, sans-serif;
+}
+
+/* SLIDES */
+.slide {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    background: black;
+    position: relative;
+}
+
+.slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* ANIMACIÓN SUAVE */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* BOTONES FLOTANTES */
+.social-buttons {
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.social-buttons {
+    position: fixed;
+    right: 25px;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.social-buttons a {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: 0.3s ease;
+}
+
+.facebook {
+    background: #1877f2;
+}
+
+.instagram {
+    background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+}
+
+.social-buttons a:hover {
+    transform: scale(1.1);
+}
+
+/* BOTÓN VOLVER ARRIBA */
+#topBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #a11224;
+    color: white;
+    cursor: pointer;
+    display: none;
+    transition: 0.3s;
+}
+
+#topBtn:hover {
+    background: #c21f35;
+}
+
+
