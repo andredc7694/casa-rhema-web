@@ -148,6 +148,19 @@ function unlock(){
     },800);
 }
 
+/* ACTIVAR MÚSICA EN PRIMER TOQUE REAL (MÓVIL Y PC) */
+const music = document.getElementById("bgMusic");
+
+function startMusic() {
+    if (music.paused) {
+        music.volume = 0.3;
+        music.play().catch(() => {});
+    }
+}
+
+document.addEventListener("touchstart", startMusic, { once: true });
+document.addEventListener("click", startMusic, { once: true });
+
 function unlock(){
     unlocked = true;
 
