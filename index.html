@@ -9,6 +9,24 @@
 </head>
 <body>
 
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- INTRO OBLIGATORIA -->
+    <section class="intro">
+        <div class="intro-content">
+            <h1>Casa Rhema</h1>
+            <p>Una reflexión sobre el amor</p>
+
+            <div class="scroll-indicator">
+                <span>Desliza hacia arriba</span>
+                <div class="arrow"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- SLIDES -->
     <section class="slide"><img src="images/pagina1.jpeg"></section>
     <section class="slide"><img src="images/pagina2.jpeg"></section>
@@ -24,13 +42,13 @@
         <a href="https://www.facebook.com/casarhemacentral" target="_blank" class="facebook">
             <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="https://www.instagram.com/iglesiarhema_ayac?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="instagram">
+        <a href="https://www.instagram.com/iglesiarhema_ayac" target="_blank" class="instagram">
             <i class="fab fa-instagram"></i>
         </a>
     </div>
 
     <!-- BOTÓN VOLVER ARRIBA -->
-    <button id="topBtn">↑</button>
+    <button id="topBtn"><i class="fas fa-arrow-up"></i></button>
 
     <script>
         const topBtn = document.getElementById("topBtn");
@@ -49,7 +67,17 @@
                 behavior: "smooth"
             });
         };
+
+        // Loader
+        window.addEventListener("load", function(){
+            const loader = document.getElementById("loader");
+            loader.style.opacity = "0";
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 600);
+        });
     </script>
 
 </body>
 </html>
+
