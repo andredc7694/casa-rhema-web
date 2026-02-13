@@ -14,7 +14,7 @@
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
-<script defer src="/_vercel/analytics/script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 <body>
 
 <!-- PANTALLA INICIAL -->
@@ -38,7 +38,7 @@
 <section class="slide"><img src="images/pagina4.jpeg"></section>
 <section class="slide"><img src="images/pagina5.jpeg"></section>
 <section class="slide"><img src="images/pagina6.jpeg"></section>
-<section class="slide"><img src="images/pagina7.jpeg"></section>
+<section class="slide"><img src="images/pagina7.jpeg"></section>|
 <section class="slide"><img src="images/pagina8.jpeg"></section>
 
 <!-- BOTONES FLOTANTES -->
@@ -133,7 +133,6 @@ function unlock(){
     if(music){
         music.volume = 0;
         music.play().then(() => {
-            // Fade in suave
             let vol = 0;
             const fade = setInterval(() => {
                 if (vol < 0.3) {
